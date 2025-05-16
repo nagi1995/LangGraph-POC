@@ -1,0 +1,56 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from logger_config import logger
+
+from typing import TypedDict, List
+from langgraph.graph import END, StateGraph
+
+class SimpleState(TypedDict):
+    count: int
+    sum: int
+    history: List[int]
+
+
+def increment(state: SimpleState) -> SimpleState: 
+    logger.info(f"previous state: {state}")
+    new_count = state["count"] + 1
+
+    current_state = {
+        "count": new_count, 
+        "sum": state["sum"] + new_count, 
+        "history": state["history"] + [new_count]
+    }
+    return current_state
+
+def should_continue(state):
+    if(state["count"] < 5): 
+        return "continue"
+    else: 
+        return "stop"
+    
+graph = StateGraph(SimpleState)
+
+graph.add_node("increment", increment)
+
+graph.set_entry_point("increment")
+
+graph.add_conditional_edges(
+    "increment", 
+    should_continue, 
+    {
+        "continue": "increment", 
+        "stop": END
+    }
+)
+
+app = graph.compile()
+
+state = {
+    "count": 0, 
+    "sum": 0, 
+    "history": []
+}
+
+result = app.invoke(state)
+logger.info(result)

@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from logger_config import logger
+
 from google.generativeai import list_models
 import google.generativeai as genai
 from dotenv import load_dotenv
@@ -7,7 +12,7 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 models = list_models()
 for model in models:
-    print(model.name)
+    logger.info(model.name)
 
 """
 models/chat-bison-001

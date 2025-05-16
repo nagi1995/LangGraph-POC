@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from logger_config import logger
+
 import json
 from typing import List, Dict, Any
 from langchain_core.messages import AIMessage, BaseMessage, ToolMessage, HumanMessage
@@ -76,8 +81,8 @@ if __name__ == "__main__":
     # Execute the tools
     results = execute_tools(test_state)
 
-    print("Raw results:", results)
+    logger.info(f"Raw results: {results}")
     if results:
         parsed_content = json.loads(results[0].content)
-        print("Parsed content:", parsed_content)
+        logger.info(f"Parsed content: {parsed_content}")
 

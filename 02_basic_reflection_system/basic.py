@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from logger_config import logger
+
 from typing import List, Sequence
 from dotenv import load_dotenv
 from langchain_core.messages import BaseMessage, HumanMessage
@@ -35,11 +40,11 @@ graph.add_edge(REFLECT, GENERATE)
 
 app = graph.compile()
 
-print(app.get_graph().draw_mermaid())
-app.get_graph().print_ascii()
+logger.info(app.get_graph().draw_mermaid())
+app.get_graph().logger.info_ascii()
 
 response = app.invoke(HumanMessage(content="AI Agents taking over content creation"))
 
-print(response)
+logger.info(response)
 
 

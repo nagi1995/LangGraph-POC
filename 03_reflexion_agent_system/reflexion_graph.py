@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from logger_config import logger
+
 from typing import List
 import json
 from langchain_core.messages import BaseMessage, ToolMessage, message_to_dict
@@ -18,7 +23,7 @@ def first_responder_chain_node(state):
             "messages": state
         }
     )
-    # print(f"response: {response}")
+    # logger.info(f"response: {response}")
     return response
 
 def revisor_chain_node(state):
@@ -27,7 +32,7 @@ def revisor_chain_node(state):
             "messages": state
         }
     )
-    # print(f"response: {response}")
+    # logger.info(f"response: {response}")
     return response
 
 graph.add_node("draft", first_responder_chain_node)
@@ -50,16 +55,16 @@ graph.set_entry_point("draft")
 
 app = graph.compile()
 
-print(app.get_graph().draw_mermaid())
+logger.info(app.get_graph().draw_mermaid())
 
 response = app.invoke(
     "Write about how small business can leverage AI to grow"
 )
 
-# print(response[-1].tool_calls[0]["args"]["answer"])
+# logger.info(response[-1].tool_calls[0]["args"]["answer"])
 
 # for state in response:
-#     print(f"\n\n{state}\n\n")
+#     logger.info(f"\n\n{state}\n\n")
 
 serialized_response = [message_to_dict(msg) for msg in response]
 with open("./reflexion_response.json", "w") as f:
