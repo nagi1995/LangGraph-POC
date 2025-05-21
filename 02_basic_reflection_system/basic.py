@@ -41,7 +41,7 @@ graph.add_edge(REFLECT, GENERATE)
 app = graph.compile()
 
 logger.info(app.get_graph().draw_mermaid())
-app.get_graph().logger.info_ascii()
+app.get_graph().print_ascii()
 
 response = app.invoke(HumanMessage(content="AI Agents taking over content creation"))
 
