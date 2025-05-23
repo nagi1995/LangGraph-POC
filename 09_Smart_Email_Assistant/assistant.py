@@ -488,9 +488,28 @@ app = graph.compile()
 
 # %%
 sample_email = Email(
-    sender="jobs@example.com",
-    subject="Interview Invitation",
-    body="We are pleased to invite you...",
+    sender="lottery@mega-prizes247.com",
+    subject="Congratulations! You've WON $1,000,000 in Our Mega Lottery!",
+    body=""" 
+    Dear Lucky Winner,
+
+    We are excited to inform you that your email address was selected in our Mega Prizes 2025 Lottery Draw! You have won $1,000,000 USD.
+
+    To claim your winnings, please reply to this email immediately with your full name, age, address, and bank details.
+
+    This is a once-in-a-lifetime opportunity and must be claimed within 48 hours or your winnings will be forfeited.
+
+    Kindly keep this information confidential to avoid double claims.
+
+    Congratulations once again!
+
+    Best Regards,
+
+    Mr. James Roland
+    Claim Agent
+    Mega Prizes International
+    lottery@mega-prizes247.com
+    """,
     date="2025-05-20"
 )
 
